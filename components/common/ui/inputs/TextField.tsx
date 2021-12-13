@@ -13,7 +13,7 @@ const StyledTextField = styled.div`
     }
 
     input {
-        background: var(--col-white);
+        background: #fff;
         border: none;
         height: 38px;
         width: 300px;
@@ -22,13 +22,13 @@ const StyledTextField = styled.div`
     }
 `
 
-const TextField = ({ label, onChange }) => {
+const TextField = ({ label, onChange, ...props }) => {
     return (
         <StyledTextField>
             <label>
                 {label}
             </label>
-            <input type="text" onChange={(e) => onChange(e.target.value)}/>
+            <input {...props} type="text" onChange={(e) => onChange(e.target.value)}/>
         </StyledTextField>
     )
 }

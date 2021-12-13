@@ -1,4 +1,5 @@
 import styled from "styled-components"
+import Link from "next/link"
 import Button from "../inputs/Button"
 import Typo from "../typo/Typo"
 
@@ -19,44 +20,44 @@ const BannerWrapper = styled.div`
   }
 
   .contents {
-        z-index: 2;
-        position: absolute;
-        top: 20%;
-        left: 50%;
-        transform: translateX(-50%);   
-        h2.banner-head {
-            text-align: center; 
-            margin-top: 3rem;
-            width: 100%;
-        }
-
-        .box {
-            /* background: var(--col-white); */
-            background: rgba(235, 238, 242, 0.7);
-            /* min-width: 500px; */
-            margin: 2rem auto;
-            padding: 1rem;
-            border-radius: 4px;
-
-            @media(max-width: 768px) {
-                width: 100vw;
-            }
-
-            h2 {
-                text-align: center;
-            }
-
-            div {
-                display: flex;
-                align-items: center;
-                justify-content: space-between;
-
-                @media(max-width: 768px) {
-                    flex-direction: column;
-                }
-            }
-        }
+    z-index: 2;
+    position: absolute;
+    top: 20%;
+    left: 50%;
+    transform: translateX(-50%);
+    h2.banner-head {
+      text-align: center;
+      margin-top: 3rem;
+      width: 100%;
     }
+
+    .box {
+      /* background: var(--col-white); */
+      background: rgba(235, 238, 242, 0.7);
+      /* min-width: 500px; */
+      margin: 2rem auto;
+      padding: 1rem;
+      border-radius: 4px;
+
+      @media (max-width: 768px) {
+        width: 100vw;
+      }
+
+      h2 {
+        text-align: center;
+      }
+
+      div {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+
+        @media (max-width: 768px) {
+          flex-direction: column;
+        }
+      }
+    }
+  }
 `
 
 const MainBanner = () => {
@@ -65,32 +66,45 @@ const MainBanner = () => {
       <div className="gradient"></div>
 
       <div className="contents">
-        <Typo
-          content="Make your trip a Best Memory with us."
-          type="heading"
-          color="light"
-          className="banner-head"
-        />
+        <Typo type="heading" color="light" className="banner-head">
+          Make your trip a Best Memory with us.{" "}
+        </Typo>
         <div className="box">
-          <Typo
-            content="What are you looking for?"
-            type="subHeading"
-            color="dark"
-          />
+          <Typo type="subHeading" color="dark">
+            {" "}
+            What are you looking for?
+          </Typo>
           <div>
-            <Button type="outlined" size="medium" text="HOTELS" onClick={""} />
-            <Button
-              type="outlined"
-              size="medium"
-              text="RESTAURANTS"
-              onClick={""}
-            />
-            <Button
-              type="outlined"
-              size="medium"
-              text="ATTRACTIONS"
-              onClick={""}
-            />
+            <Link href="/find/hotels" passHref>
+              <a>
+                <Button
+                  type="outlined"
+                  size="medium"
+                  text="HOTELS"
+                />
+              </a>
+            </Link>
+            <Link href="/find/restaurants" passHref>
+              <a>
+                {" "}
+                <Button
+                  type="outlined"
+                  size="medium"
+                  text="RESTAURANTS"
+                />
+              </a>
+            </Link>
+
+            <Link href="/find/attractions" passHref>
+              <a>
+                {" "}
+                <Button
+                  type="outlined"
+                  size="medium"
+                  text="ATTRACTIONS"
+                />
+              </a>
+            </Link>
           </div>
         </div>
       </div>

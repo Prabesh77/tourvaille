@@ -6,7 +6,7 @@ const StyledButton = styled.div`
         border: none;
         color: var(--col-white);
         border-radius: 4px;
-        margin: 1rem; //temp
+        /* margin: 1rem; //temp */
         box-shadow: var(--main-shadow);
         font-weight: 500;
         cursor: pointer;
@@ -26,7 +26,7 @@ const StyledButton = styled.div`
         border: 1px solid var(--col-black);
     }
     .small {
-        padding: 6px 1.5rem;
+        padding: 7px 1.5rem;
     }
     .medium {
         padding: 8px 2rem;
@@ -36,10 +36,17 @@ const StyledButton = styled.div`
     }
 `
 
-const Button = ({type, text, size, onClick}) => {
+interface ButtonProps {
+    type: String
+    text: String
+    size: String
+    onClick?: Function
+}
+
+const Button = ({type, text, size}: ButtonProps) => {
     return (
         <StyledButton> 
-            <button className={`${type} ${size}`} onClick={() => onClick()}>
+            <button className={`${type} ${size}`}>
                 {text}
             </button>
         </StyledButton>

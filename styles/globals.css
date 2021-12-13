@@ -2,6 +2,7 @@
 
 :root {
   --col-brand: #f73057;
+  /* --col-brand: #ee298c; */
   --col-blue: #31b9e4;
   --col-white: #ebeef2;
   --col-black: #40434b;
@@ -41,4 +42,12 @@
   padding: 0;
   box-sizing: border-box;
   font-family: var(--font);
+}
+body {
+  overflow-x: hidden;
+}
+
+a {
+  text-decoration: none;
+  color: inherit;
 }
