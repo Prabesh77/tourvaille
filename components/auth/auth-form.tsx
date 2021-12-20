@@ -4,9 +4,10 @@ import { signIn } from "next-auth/react"
 import { useRouter } from "next/router"
 import NotificationContext from "../../store/notification-store"
 
-import Button from '../common/ui/inputs/Button'
+import Button from "../common/ui/inputs/Button"
 
-import styled from 'styled-components'
+import styled from "styled-components"
+import { useForm } from "react-hook-form"
 
 const AuthWrapper = styled.div`
   h1 {
@@ -32,6 +33,13 @@ const AuthWrapper = styled.div`
       outline: none;
       padding: 0 1rem;
       border-radius: 4px;
+    }
+    .error-message {
+      font-size: 12px;
+      color: var(--col-warning);
+      font-weight: 500;
+      margin-top: 4px;
+    
     }
   }
   .action-buttons {
@@ -68,8 +76,17 @@ const createUser = async (email, password) => {
   return data
 }
 
-function AuthForm({setShowModal}) {
+function AuthForm({ setShowModal }) {
+  const {
+    register,
+    handleSubmit,
+    watch,
+    formState: { errors },
+  } = useForm()
   const [isLogin, setIsLogin] = useState(true)
+  const [email, setEmail] = useState("")
+  const [password, setPassword] = useState("")
+  const [confirmPassword, setConfirmPassword] = useState("")
   const notificationCtx = useContext(NotificationContext)
 
   const router = useRouter()
@@ -81,11 +98,9 @@ function AuthForm({setShowModal}) {
     setIsLogin((prevState) => !prevState)
   }
 
-  const submitHandler = async (event) => {
-    event.preventDefault()
-
-    const enteredEmail = emailInputRef.current.value
-    const enteredPassword = passwordInputRef.current.value
+  const submitHandler = async (data) => {
+    const enteredEmail = data.email
+    const enteredPassword = data.password
 
     if (isLogin) {
       notificationCtx.showNotification({
@@ -123,11 +138,20 @@ function AuthForm({setShowModal}) {
         })
         const result = await createUser(enteredEmail, enteredPassword)
         console.log(result)
+        if (!result.error) {
+          notificationCtx.showNotification({
+            title: "Signed IN",
+            message: "Signed In",
+            status: "success",
+          })
+          // router.replace("/profile")
+          setIsLogin(true)
+        }
       } catch (error) {
         console.log(error)
         notificationCtx.showNotification({
           title: "Error",
-          message:error?.message,
+          message: error?.message,
           status: "error",
         })
       }
@@ -137,35 +161,40 @@ function AuthForm({setShowModal}) {
   return (
     <AuthWrapper>
       <h1>{isLogin ? "Login" : "Sign Up"}</h1>
-      <form onSubmit={submitHandler}>
-        <div className='form-group'>
-          <label htmlFor='email'>Email</label>
-          <input type='email' id='email' required ref={emailInputRef} />
-        </div>
-        <div className='form-group'>
-          <label htmlFor='password'>Password</label>
+      <form onSubmit={handleSubmit(submitHandler)}>
+        <div className="form-group">
+          <label htmlFor="email">Email</label>
           <input
-            type='password'
-            id='password'
-            required
-            ref={passwordInputRef}
+            type="email"
+            id="email"
+            {...register("email", { required: true })}
           />
+          {errors.email && <span className="error-message">This field is required</span>}
         </div>
-        {!isLogin && <div className='form-group'>
-          <label htmlFor='password'>Confirm Password</label>
+        <div className="form-group">
+          <label htmlFor="password">Password</label>
           <input
-            type='password'
-            id='re-password'
-            required
-            ref={passwordInputRef}
+            type="password"
+            id="password"
+            {...register("password", { required: true })}
           />
-        </div>}
+           {errors.password && <span className="error-message">This field is required</span>}
+        </div>
+        {!isLogin && (
+          <div className="form-group">
+            <label htmlFor="password">Confirm Password</label>
+            <input
+              type="password"
+              id="re-password"
+              {...register("confirmPassword", { required: true })}
+            />
+            {errors.confirmPassword && <span className="error-message">This field is required</span>}
+          </div>
+        )}
         <div className="action-buttons">
           {/* <button>{isLogin ? "Login" : "Create Account"}</button> */}
-          <Button type="primary" text="Login" size="small"/>
-          <span
-            className="toggle-link"
-            onClick={switchAuthModeHandler}>
+          <Button type="primary" text="Login" size="small" />
+          <span className="toggle-link" onClick={switchAuthModeHandler}>
             {isLogin ? "Create new account" : "Login with existing account"}
           </span>
         </div>

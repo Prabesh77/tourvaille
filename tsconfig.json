@@ -4,7 +4,8 @@
     "lib": [
       "dom",
       "dom.iterable",
-      "esnext"
+      "esnext",
+      "es2018.promise"
     ],
     "allowJs": true,
     "skipLibCheck": true,
@@ -22,7 +23,7 @@
     "next-env.d.ts",
     "**/*.ts",
     "**/*.tsx"
-, "pages/_document.js"  ],
+, "pages/_document.js", "pages/api/travel/adventures.js"  ],
   "exclude": [
     "node_modules"
   ]

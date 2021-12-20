@@ -20,7 +20,6 @@ function Layout(props) {
   const notificationCtx = useContext(NotificationContext)
 
   const activeNotification = notificationCtx.notification
-  console.log(router)
   return (
     <LayoutWrapper isModalOpened={showModal}>
       {!router.asPath.includes('find') && <Navbar setShowModal={setShowModal}/>}

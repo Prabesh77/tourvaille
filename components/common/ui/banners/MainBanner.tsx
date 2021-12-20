@@ -55,6 +55,11 @@ const BannerWrapper = styled.div`
         @media (max-width: 768px) {
           flex-direction: column;
         }
+        button {
+          margin: 1rem 0;
+          width: 100%;
+          width: 200px;
+        }
       }
     }
   }

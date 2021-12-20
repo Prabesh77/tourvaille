@@ -2,7 +2,6 @@ import React from 'react'
 import SectionHead from '../common/ui/typo/SectionHead'
 
 import styled from 'styled-components'
-import CardSlider from '../common/ui/cards/CardSlider'
 import SlickSlider from '../common/slider/Slider'
 
 // Types

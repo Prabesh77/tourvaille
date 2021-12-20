@@ -95,6 +95,12 @@ const Nav = styled.div`
             top: 0;
             right: 0;
           }
+          a {
+            font-weight: 600;
+            &:hover {
+              color: var(--col-brand);
+            }
+          }
         }
 
         form {
@@ -203,7 +209,6 @@ export default function Navbar({ setShowModal }) {
   const [menu, setMenu] = useState(false)
   const router = useRouter()
 
-  console.log(session?.user?.email, "signed in", status)
 
   const [effect, setEffect] = useState(false)
   const handleScroll = () => {
@@ -229,11 +234,6 @@ export default function Navbar({ setShowModal }) {
     setShowModal(true)
   }
   const logoutHandler = () => [signOut()]
-
-  if (status === "loading") {
-    return <h1>Loading here..</h1>
-  }
-
   return (
     <Nav>
       <div className="_nav-container">
@@ -256,7 +256,7 @@ export default function Navbar({ setShowModal }) {
               <li>
                 {" "}
                 <Link href="/explore" passHref>
-                  <a>Explore anywhere?</a>
+                  <a>Looking for Adventures?</a>
                 </Link>
               </li>
             </a>

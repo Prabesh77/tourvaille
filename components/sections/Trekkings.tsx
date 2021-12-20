@@ -2,29 +2,31 @@ import React from 'react'
 import SectionHead from '../common/ui/typo/SectionHead'
 
 import styled from 'styled-components'
-import Opt from '../common/ui/cards/Opt'
 import SlickSlider from '../common/slider/Slider'
 
 // Types
-import { Places } from '../../types/index'
+import { Places, Trekkings } from '../../types'
 
 const SectionWrapper = styled.div`
-    height: 400px;
+    background: #fff;
     .contents {
         max-width: 1130px;
         margin: 0 auto;
     }
    
 `
-const NearbyPlaces = ({places}) => {
+
+
+
+const Trekking = ({trekking}:Trekkings) => {
     return (
         <SectionWrapper>
             <div className="contents">
-                <SectionHead subHeadContent="Places near you" paragraphContent="Just around you"/>
-                <SlickSlider data={places}/>
+                <SectionHead subHeadContent="Best Trekking Routes." paragraphContent="Where most people are trekking."/>
+                <SlickSlider data={trekking} type="Trekking"/>
             </div>
         </SectionWrapper>
     )
 }
 
-export default NearbyPlaces
+export default Trekking

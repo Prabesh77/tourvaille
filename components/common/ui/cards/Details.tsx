@@ -228,7 +228,7 @@ const Details = () => {
               type="primary"
               size="large"
               text="Add to Favourites"
-              onClick={""}
+              // onClick={""}
             />
           </div>
         </div>

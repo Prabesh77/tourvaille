@@ -4,7 +4,8 @@ import "slick-carousel/slick/slick.css"
 import { FiChevronLeft, FiChevronRight } from "react-icons/fi"
 import styled from "styled-components"
 import MainCard from "../ui/cards/MainCard"
-import { Place } from "../../../types/index"
+import { Place, Trekking, Rafting } from "../../../types/index"
+import AdventureCard from "../ui/cards/AdventureCard"
 
 const SlickWrapper = styled.div`
   margin-top: 1rem;
@@ -156,7 +157,8 @@ const SlickWrapper = styled.div`
 `
 
 interface PropTypes {
-  data: Place[]
+  data: Place[] | Trekking[] | Rafting[]
+  type?: String
   slidesToShow?: number
   dots?: boolean
   fade?: boolean
@@ -175,8 +177,9 @@ const SlickSlider = ({
   mobileSlides = 1,
   centerMode = true,
   infinite = true,
+  type,
   ...rest
-}) => {
+}: PropTypes) => {
 //   let slider = React.useRef()
   let slider = React.useRef() as unknown as Slider | null;
 
@@ -186,7 +189,6 @@ const SlickSlider = ({
   const previous = ():void => {
     slider?.slickPrev()
   }
-
 
   return (
     <SlickWrapper className="slider_wrapper">
@@ -237,9 +239,14 @@ const SlickSlider = ({
           ]}
           {...rest}
         >
+         
+            {data?.map((place) => (
+              type?<AdventureCard key={place.id} place={place} type={type} />: <MainCard key={place.id} place={place} />
+            ))}
+{/* 
           {data?.map((place) => (
             <MainCard key={place.id} place={place} />
-          ))}
+          ))} */}
         </Slider>
         <div
           onClick={next}

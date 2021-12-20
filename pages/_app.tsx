@@ -4,9 +4,11 @@ import { AppProps } from "next/app"
 import { SessionProvider } from "next-auth/react"
 import { NotificationContextProvider } from "../store/notification-store"
 import Layout from '../components/layout/layout'
+import { DataContextProvider } from "../store/data-store"
 
 function MyApp({ Component, pageProps: { session, ...pageProps } }: AppProps) {
   return (
+    <DataContextProvider>
     <NotificationContextProvider>
       <SessionProvider session={pageProps.session}>
         {" "}
@@ -16,6 +18,7 @@ function MyApp({ Component, pageProps: { session, ...pageProps } }: AppProps) {
         </Layout>
       </SessionProvider>
     </NotificationContextProvider>
+    </DataContextProvider>
   )
 }
 

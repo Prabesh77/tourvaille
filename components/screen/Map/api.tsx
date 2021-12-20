@@ -44,43 +44,31 @@ export const getPlacesData = async(type, sw, ne) => {
     }
 }
 
-
-var list_options:any = {
-  method: 'POST',
-  url: 'https://travel-advisor.p.rapidapi.com/hotels/v2/list',
-  params: {currency: 'USD', units: 'km', lang: 'en_US'},
-  headers: {
-    'content-type': 'application/json',
-    'x-rapidapi-host': 'travel-advisor.p.rapidapi.com',
-    'x-rapidapi-key': 'e39b4a9dafmshf3836953534f8e1p1d2d71jsn749eed11afd4'
+const  trailOptions:any = {
+  method: 'GET',
+  url: 'https://trailapi-trailapi.p.rapidapi.com/activity/',
+  params: {
+    lat: '34.1',
+    limit: '25',
+    lon: '-105.2',
+    'q-city_cont': 'Denver',
+    'q-country_cont': 'Australia',
+    // 'q-state_cont': 'California',
+    radius: '25',
+    'q-activities_activity_type_name_eq': 'hiking'
   },
-  data: {
-    geoId: 293928,
-    checkIn: '2021-06-28',
-    checkOut: '2021-06-30',
-    sort: 'PRICE_LOW_TO_HIGH',
-    sortOrder: 'asc',
-    filters: [
-      {id: 'deals', value: ['1', '2', '3']},
-      {id: 'price', value: ['31', '122']},
-      {id: 'type', value: ['9189', '9201']},
-      {id: 'amenity', value: ['9156', '9658', '21778', '9176']},
-      {id: 'distFrom', value: ['2227712', '25.0']},
-      {id: 'rating', value: ['40']},
-      {id: 'class', value: ['9572']}
-    ],
-    rooms: [{adults: 2, childrenAges: [2]}, {adults: 2, childrenAges: [3]}],
-    boundingBox: {
-      northEastCorner: {latitude: 12.248278039408776, longitude: 109.1981618106365},
-      southWestCorner: {latitude: 12.243407232845051, longitude: 109.1921640560031}
-    },
-    updateToken: ''
+  headers: {
+    'x-rapidapi-host': 'trailapi-trailapi.p.rapidapi.com',
+    'x-rapidapi-key': 'e39b4a9dafmshf3836953534f8e1p1d2d71jsn749eed11afd4'
   }
 };
 
-
-  axios.request(list_options).then(function (response) {
-    console.log(response.data, 'data');
-  }).catch(function (error) {
-    console.error(error);
-  });
+export const getTrailData = async() => {
+  try {
+    const trailData = axios(trailOptions)
+    return trailData
+  }
+  catch(err) {
+    console.log(err)
+  }
+}

@@ -53,28 +53,36 @@ interface Props {
   place: Place
 }
 
-const MainCard = ({ place }: Props) => {
-  const { name, location, price, image } = place
+const MainCard = ({ place }) => {
+  // const { name, location, price, photo: {images: {original: {url}}}} = place
+  // console.log(place?.photo?.images?.original?.url || )
   return (
     <CardWrapper>
       <Link href="/type/place">
         <a>
           <div className="image">
-            <Image
-              src={image}
+           <Image
+              src={place?.photo?.images?.original?.url || '/no_image.png'}
               alt=""
               height="250"
               width="244"
               objectFit="cover"
             />
+            {/* <Image
+              src={place?.photo?.images?.original?.url}
+              alt=""
+              height="250"
+              width="244"
+              objectFit="cover"
+            /> */}
           </div>
           <div className="detail">
             <div className="left">
-              <p>{name}</p>
-              <span>{location}</span>
+              <p>{place?.name}</p>
+              {/* <span>{location}</span> */}
             </div>
             <div className="right">
-              <p>Rs. {price}</p>
+              <p>{place?.open_now_text}</p>
             </div>
           </div>
         </a>
