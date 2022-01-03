@@ -5,9 +5,9 @@ import styled from "styled-components"
 
 const NotifyWrapper = styled.div`
   div {
-    width: 250px;
+    min-width: 50px;
     height: 32px;
-    padding: 8px 0;
+    padding: 8px 12px;
     color: #fff;
     display: flex;
     justify-content: space-around;
@@ -16,6 +16,9 @@ const NotifyWrapper = styled.div`
     position: absolute;
     bottom: 1rem;
     z-index: 60;
+    box-shadow: -2px 2px 52px -17px rgba(0,0,0,0.75);
+-webkit-box-shadow: -2px 2px 52px -17px rgba(0,0,0,0.75);
+-moz-box-shadow: -2px 2px 52px -17px rgba(0,0,0,0.75);
     p:nth-child(1) {
       text-transform: uppercase;
     }

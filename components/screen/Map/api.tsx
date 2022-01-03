@@ -19,7 +19,7 @@ const options = {
     },
     headers: {
       'x-rapidapi-host': 'travel-advisor.p.rapidapi.com',
-      'x-rapidapi-key': 'e39b4a9dafmshf3836953534f8e1p1d2d71jsn749eed11afd4'
+      'x-rapidapi-key': '11f3464d31mshe741827687476c4p109d89jsn5e7c6d3b6519'
     }
   };
   
@@ -34,7 +34,7 @@ export const getPlacesData = async(type, sw, ne) => {
               },
               headers: {
                 'x-rapidapi-host': 'travel-advisor.p.rapidapi.com',
-                'x-rapidapi-key': 'e39b4a9dafmshf3836953534f8e1p1d2d71jsn749eed11afd4'
+                'x-rapidapi-key': '11f3464d31mshe741827687476c4p109d89jsn5e7c6d3b6519'
               }
         })
         return data
@@ -44,31 +44,31 @@ export const getPlacesData = async(type, sw, ne) => {
     }
 }
 
-const  trailOptions:any = {
-  method: 'GET',
-  url: 'https://trailapi-trailapi.p.rapidapi.com/activity/',
-  params: {
-    lat: '34.1',
-    limit: '25',
-    lon: '-105.2',
-    'q-city_cont': 'Denver',
-    'q-country_cont': 'Australia',
-    // 'q-state_cont': 'California',
-    radius: '25',
-    'q-activities_activity_type_name_eq': 'hiking'
-  },
-  headers: {
-    'x-rapidapi-host': 'trailapi-trailapi.p.rapidapi.com',
-    'x-rapidapi-key': 'e39b4a9dafmshf3836953534f8e1p1d2d71jsn749eed11afd4'
-  }
-};
+// const  trailOptions:any = {
+//   method: 'GET',
+//   url: 'https://trailapi-trailapi.p.rapidapi.com/activity/',
+//   params: {
+//     lat: '34.1',
+//     limit: '25',
+//     lon: '-105.2',
+//     'q-city_cont': 'Denver',
+//     'q-country_cont': 'Australia',
+//     // 'q-state_cont': 'California',
+//     radius: '25',
+//     'q-activities_activity_type_name_eq': 'hiking'
+//   },
+//   headers: {
+//     'x-rapidapi-host': 'trailapi-trailapi.p.rapidapi.com',
+//     'x-rapidapi-key': 'e39b4a9dafmshf3836953534f8e1p1d2d71jsn749eed11afd4'
+//   }
+// };
 
-export const getTrailData = async() => {
-  try {
-    const trailData = axios(trailOptions)
-    return trailData
-  }
-  catch(err) {
-    console.log(err)
-  }
-}
+// export const getTrailData = async() => {
+//   try {
+//     const trailData = axios(trailOptions)
+//     return trailData
+//   }
+//   catch(err) {
+//     console.log(err)
+//   }
+// }

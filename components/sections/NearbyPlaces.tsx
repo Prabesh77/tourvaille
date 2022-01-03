@@ -20,7 +20,7 @@ const NearbyPlaces = ({places}) => {
     return (
         <SectionWrapper>
             <div className="contents">
-                <SectionHead subHeadContent="Places near you" paragraphContent="Just around you"/>
+                <SectionHead subHeadContent="Attractions near you" paragraphContent="Just around you"/>
                 <SlickSlider data={places}/>
             </div>
         </SectionWrapper>

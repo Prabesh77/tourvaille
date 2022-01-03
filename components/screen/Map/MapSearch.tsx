@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react"
+import { useEffect, useState, useContext } from "react"
 import styled from "styled-components"
 import { useRouter } from 'next/router'
 
@@ -6,6 +6,7 @@ import { getPlacesData } from "./api"
 import List from "./common/List"
 import Map from "./common/Map"
 import Header from "./common/MapHeader"
+import DataContext from "../../../store/data-store"
 
 const Layout = styled.div`
   .layout {
@@ -37,9 +38,11 @@ const Layout = styled.div`
 function MapSearch({currentType}) {
   const [places, setPlaces] = useState<any>()
   const [filteredPlaces, setFilteredPlaces] = useState<any>()
+  const { coordinates, setCoordinates, bounds, setBounds} = useContext(DataContext)
 
-  const [coordinates, setCoordinates] = useState({})
-  const [bounds, setBounds] = useState<any>({})
+  // const [coordinates, setCoordinates] = useState({})
+  // const [bounds, setBounds] = useState<any>({})
+  console.log(coordinates, bounds)
 
   const [type, setType] = useState(currentType)
   const [rating, setRating] = useState("")
@@ -74,7 +77,7 @@ function MapSearch({currentType}) {
   return (
     <>
       <Layout className="App">
-        <Header setShowModal={null} setCoordinates={setCoordinates} />
+        {/* <Header setShowModal={null} setCoordinates={setCoordinates} /> */}
         <div className="layout">
           <div className="left">
             <List

@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react"
 import styled from "styled-components"
 import { motion, AnimatePresence } from "framer-motion"
 import { RiMenu3Fill } from "react-icons/ri"
-import { HiOutlineSearch, HiOutlineUserCircle } from "react-icons/hi"
+import { HiHeart, HiOutlineSearch, HiOutlineUserCircle } from "react-icons/hi"
 import Link from "next/link"
 import { Autocomplete } from "@react-google-maps/api"
 import { useRouter } from "next/router"
@@ -206,8 +206,19 @@ const Nav = styled.div`
 
 export default function Navbar({ setShowModal }) {
   const { data: session, status } = useSession()
-  const [menu, setMenu] = useState(false)
   const router = useRouter()
+
+  const [autoComplete, setAutoComplete] = useState(null)
+
+  const onLoad = (autoC) => {
+      setAutoComplete(autoC)
+  }
+
+  const onPlaceChanged = () => {
+      const lat = autoComplete.getPlace().geometry.location.lat()
+      const lng = autoComplete.getPlace().geometry.location.lng()
+      // setCoordinates({lat, lng})
+  }
 
 
   const [effect, setEffect] = useState(false)
@@ -247,19 +258,23 @@ export default function Navbar({ setShowModal }) {
         <nav className="_nav">
           <ul>
             <form>
+            <Autocomplete onLoad={onLoad} onPlaceChanged={onPlaceChanged}>
               <input type="text" placeholder="Search" />
+              </Autocomplete>
+              {/* <input type="text" placeholder="Search" /> */}
               <button>
                 <HiOutlineSearch style={{ fontSize: "25px" }} />
               </button>
             </form>
-            <a href="#service" className="explore">
+            {/* <a href="#service" className="explore"> */}
               <li>
                 {" "}
                 <Link href="/explore" passHref>
                   <a>Looking for Adventures?</a>
                 </Link>
               </li>
-            </a>
+            {/* </a> */}
+            {status === 'authenticated' && <Link href="/favourites" passHref><a><HiHeart style={{color: 'var(--col-brand)', fontSize: '20px'}} /></a></Link>}
             <div className="user-options">
               <button
                 className={` button ${!effect ? "normal-btn" : "active-btn"}`}

@@ -2,7 +2,6 @@ import React from 'react'
 import SectionHead from '../common/ui/typo/SectionHead'
 
 import styled from 'styled-components'
-import CardSlider from '../common/ui/cards/CardSlider'
 import SlickSlider from '../common/slider/Slider'
 
 // Types
@@ -19,7 +18,7 @@ const InterestedPlaces = ({places}) => {
     return (
         <SectionWrapper>
             <div className="contents">
-                <SectionHead subHeadContent="You might be interested in these." paragraphContent="Places in Kathmandu."/>
+                <SectionHead subHeadContent="Want to have some delicious meals?" paragraphContent="Its not far"/>
                 <SlickSlider data={places}/>
             </div>
         </SectionWrapper>

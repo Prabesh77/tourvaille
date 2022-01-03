@@ -22,7 +22,7 @@ const MostPopular = ({places}:Places) => {
     return (
         <SectionWrapper>
             <div className="contents">
-                <SectionHead subHeadContent="Most Popular." paragraphContent="Where most people are liking."/>
+                <SectionHead subHeadContent="Best Hotels around you" paragraphContent="Where most people are liking."/>
                 <SlickSlider data={places}/>
             </div>
         </SectionWrapper>

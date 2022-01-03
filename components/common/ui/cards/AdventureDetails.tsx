@@ -11,6 +11,7 @@ import { FaMapMarkerAlt } from 'react-icons/fa'
 const DetailsWrapper = styled.div`
   width: 100%auto;
   margin-top: 2rem;
+  min-height: 1000px;
   @media (max-width: 768px) {
     margin-top: 0;
   }
@@ -294,7 +295,6 @@ const AdventureDetails = ({ details, type }) => {
               key={1} className="marker-icon" />
           </GoogleMapReact>
         </div>}
-        
       </div>
     </DetailsWrapper>
   )

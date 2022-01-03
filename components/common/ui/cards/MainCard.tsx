@@ -9,7 +9,6 @@ const CardWrapper = styled.section`
   border-radius: 4px 4px 0 0;
   overflow: hidden;
 
-
   .image {
     width: 100%;
   }
@@ -55,14 +54,13 @@ interface Props {
 
 const MainCard = ({ place }) => {
   // const { name, location, price, photo: {images: {original: {url}}}} = place
-  // console.log(place?.photo?.images?.original?.url || )
   return (
     <CardWrapper>
-      <Link href="/type/place">
+      <Link href={`${place?.hotel_class?'hotel' : place?.cuisine?'restaurants': 'attractions'}/${place?.name}`}>
         <a>
           <div className="image">
-           <Image
-              src={place?.photo?.images?.original?.url || '/no_image.png'}
+            <Image
+              src={place?.photo?.images?.original?.url ||place?.photo?.images?.original?.medium ||"/no_image.png"}
               alt=""
               height="250"
               width="244"
@@ -84,6 +82,7 @@ const MainCard = ({ place }) => {
             <div className="right">
               <p>{place?.open_now_text}</p>
             </div>
+           
           </div>
         </a>
       </Link>

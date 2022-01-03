@@ -4,7 +4,9 @@ import { motion, AnimatePresence } from "framer-motion"
 import { RiMenu3Fill } from "react-icons/ri"
 import { HiOutlineSearch, HiOutlineUserCircle } from "react-icons/hi"
 import Link from 'next/link'
-import { Autocomplete } from '@react-google-maps/api';
+import { Autocomplete } from '@react-google-maps/api'
+import { useRouter } from "next/router"
+import { useSession, signOut } from "next-auth/react"
 
 const Nav = styled.div`
   min-height: 60px;
@@ -167,8 +169,17 @@ const Nav = styled.div`
    
   } 
 `
+
+interface Props {
+  setShowModal: Function
+  setCoordinates?:Function
+}
+
 export default function Header({setShowModal, setCoordinates}) {
   const [menu, setMenu] = useState(false)
+
+  const { data: session, status } = useSession()
+  const router = useRouter()
 
   const [autoComplete, setAutoComplete] = useState(null)
 
@@ -195,6 +206,18 @@ export default function Header({setShowModal, setCoordinates}) {
     window.addEventListener("scroll", handleScroll)
   }, [effect])
 
+  const handleUserIconClick = () => {
+    if (status === "authenticated") {
+      router.replace("/profile")
+      return
+    }
+    if (status === "loading") {
+      return
+    }
+    setShowModal(true)
+  }
+  const logoutHandler = () => [signOut()]
+
   return (
     <Nav>
       <div className="_nav-container">
@@ -214,13 +237,13 @@ export default function Header({setShowModal, setCoordinates}) {
             <a href="#service" className="explore">
               <li> <Link href="/explore" passHref><a>Explore anywhere?</a></Link></li>
             </a>
-            <div className="user-options" onClick={() => setShowModal(true)}>
+            <div className="user-options" onClick={() => handleUserIconClick()}>
               <button className={!effect ? "normal-btn" : "active-btn"}>
               <HiOutlineUserCircle style={{fontSize: '18px'}}/>
               </button>
-            <p className="hamburger" onClick={() => setMenu(!menu)}>
+            {/* <p className="hamburger" onClick={() => setMenu(!menu)}>
               <RiMenu3Fill />
-            </p>
+            </p> */}
             </div>
           </ul>
         </nav>

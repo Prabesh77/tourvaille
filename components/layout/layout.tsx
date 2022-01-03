@@ -1,13 +1,15 @@
 import { useContext, useState } from "react"
 import Notify from "../common/other/Notify"
 
-import MainNavigation from "./main-navigation"
 import NotificationContext from "../../store/notification-store"
 import Navbar from "../common/ui/nav/Navbar"
 import Modal from "../common/ui/modal/Modal"
 import AuthForm from "../auth/auth-form"
 import styled from 'styled-components'
 import { useRouter } from 'next/router'
+import Header from "../screen/Map/common/MapHeader"
+import DataContext from "../../store/data-store"
+import Footer from "../common/ui/nav/Footer"
 
 const LayoutWrapper = styled.div`
    height: ${props => props.isModalOpened? '100vh': 'auto'};
@@ -18,11 +20,12 @@ function Layout(props) {
   const router = useRouter()
   const [showModal, setShowModal] = useState(false);
   const notificationCtx = useContext(NotificationContext)
+  const { coordinates, setCoordinates} = useContext(DataContext)
 
   const activeNotification = notificationCtx.notification
   return (
     <LayoutWrapper isModalOpened={showModal}>
-      {!router.asPath.includes('find') && <Navbar setShowModal={setShowModal}/>}
+      {!router.asPath.includes('find')? <Navbar setShowModal={setShowModal}/>: <Header setShowModal={setShowModal} setCoordinates={setCoordinates}/>}
 
       <main>{props.children}</main>
       {/* {activeNotification && ( */}
@@ -39,6 +42,7 @@ function Layout(props) {
         >
           <AuthForm setShowModal={setShowModal}/>
         </Modal>
+        <Footer />
     </LayoutWrapper>
   )
 }
