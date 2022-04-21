@@ -16,13 +16,30 @@ const LoaderWrapper = styled.div`
 
 const ProfileWrapper = styled.div`
   /* background: #ccc; */
+  min-height: 50vh;
  margin-top: 5rem;
-
+ h1 {
+   text-align: center;
+   margin: 1.5rem 0;
+   font-size: 30px;
+   span {
+     color: var(--col-brand);
+   }
+ }
+ p {
+  text-align: center;
+  cursor: pointer;
+  font-weight: 500;
+ }
 `
 
 function UserProfile() {
   // Redirect away if NOT auth
+  const { data: session, status } = useSession()
   const [isLoading, setIsLoading] = useState(true)
+  const [showForm, setShowForm] = useState(false)
+
+  console.log('user', session)
 
   useEffect(() => {
     getSession().then((session) => {
@@ -54,8 +71,9 @@ function UserProfile() {
 
   return (
     <ProfileWrapper>
-      {/* <h1>Your User Profile</h1> */}
-      <ProfileForm onChangePassword={changePasswordHandler}/>
+      <h1>Welcome <span>{session?.user?.email}</span></h1>
+      <p onClick={() => setShowForm(!showForm)}>Reset Password?</p>
+     {showForm && <ProfileForm onChangePassword={changePasswordHandler}/>} 
     </ProfileWrapper>
   )
 }

@@ -81,7 +81,7 @@ interface Props {
 }
 
 const AdventureCard = ({ place, type, refresh }: Props) => {
-  const { data: session, status } = useSession()
+ 
   const [favourite, setFavourite] = useState<Boolean>(false)
   const [checkAuth, setCheckAuth] = useState<Boolean>()
   // const checkType = type === "Trekking" ? true : false

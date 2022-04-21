@@ -10,6 +10,7 @@ import styled from "styled-components"
 import { useForm } from "react-hook-form"
 
 const AuthWrapper = styled.div`
+padding: 1rem;
   h1 {
     margin: 0;
     text-align: center;
@@ -59,9 +60,10 @@ const AuthWrapper = styled.div`
 `
 
 const createUser = async (email, password) => {
-  const response = await fetch("/api/auth/signup", {
+    const type = 'Admin'
+  const response = await fetch("/api/auth/adminSignup", {
     method: "POST",
-    body: JSON.stringify({ email, password }),
+    body: JSON.stringify({ email, password, type }),
     headers: {
       "Content-Type": "application/json",
     },
@@ -76,7 +78,7 @@ const createUser = async (email, password) => {
   return data
 }
 
-function AuthForm({ setShowModal }) {
+function AdminAuthForm() {
   const {
     register,
     handleSubmit,
@@ -104,8 +106,8 @@ function AuthForm({ setShowModal }) {
 
     if (isLogin) {
       notificationCtx.showNotification({
-        title: "Logging in...",
-        message: "Logging in",
+        title: "Admin Login",
+        message: "Logging in..",
         status: "pending",
       })
       const result = await signIn("credentials", {
@@ -116,11 +118,10 @@ function AuthForm({ setShowModal }) {
       if (!result.error) {
         notificationCtx.showNotification({
           title: "Logged IN",
-          message: "Logged In",
+          message: "Admin Logged In",
           status: "success",
         })
-        router.replace("/profile")
-        setShowModal(false)
+        // router.replace("/profile")
       } else {
         notificationCtx.showNotification({
           title: "Error",
@@ -133,7 +134,7 @@ function AuthForm({ setShowModal }) {
       try {
         notificationCtx.showNotification({
           title: "Signing in...",
-          message: "Signing in",
+          message: "Admin Signing in",
           status: "pending",
         })
         const result = await createUser(enteredEmail, enteredPassword)
@@ -141,7 +142,7 @@ function AuthForm({ setShowModal }) {
         if (!result.error) {
           notificationCtx.showNotification({
             title: "Signed IN",
-            message: "Signed In",
+            message: "Admin Signed In",
             status: "success",
           })
           // router.replace("/profile")
@@ -203,4 +204,4 @@ function AuthForm({ setShowModal }) {
   )
 }
 
-export default AuthForm
+export default AdminAuthForm

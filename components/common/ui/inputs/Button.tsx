@@ -36,17 +36,18 @@ const StyledButton = styled.div`
     }
 `
 
-interface ButtonProps {
-    type: String
-    text: String
-    size: String
-    onClick?: Function
-}
+// interface ButtonProps {
+//     type: String
+//     text: String
+//     size: String
+//     onClick?: Function
 
-const Button = ({type, text, size}: ButtonProps) => {
+// }
+
+const Button = ({type, text, size, ...props}) => {
     return (
         <StyledButton> 
-            <button className={`${type} ${size}`}>
+            <button className={`${type} ${size}`} {...props}>
                 {text}
             </button>
         </StyledButton>

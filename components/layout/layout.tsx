@@ -21,11 +21,23 @@ function Layout(props) {
   const [showModal, setShowModal] = useState(false);
   const notificationCtx = useContext(NotificationContext)
   const { coordinates, setCoordinates} = useContext(DataContext)
-
   const activeNotification = notificationCtx.notification
+
+  const renderTypeOfNav = () => {
+    if(router.asPath.includes('find')) {
+      return <Header setShowModal={setShowModal} setCoordinates={setCoordinates}/>
+    }
+    else if(router.asPath === '/admin') {
+      return null
+    }
+    else {
+      return <Navbar setShowModal={setShowModal}/>
+    }
+  }
   return (
     <LayoutWrapper isModalOpened={showModal}>
-      {!router.asPath.includes('find')? <Navbar setShowModal={setShowModal}/>: <Header setShowModal={setShowModal} setCoordinates={setCoordinates}/>}
+      {/* {!router.asPath.includes('find')? <Navbar setShowModal={setShowModal}/>: router.asPath !== '/admin'? <Header setShowModal={setShowModal} setCoordinates={setCoordinates}/>: null} */}
+      {renderTypeOfNav()}
 
       <main>{props.children}</main>
       {/* {activeNotification && ( */}
@@ -42,7 +54,7 @@ function Layout(props) {
         >
           <AuthForm setShowModal={setShowModal}/>
         </Modal>
-        <Footer />
+        {router.asPath !== '/admin' && <Footer />}
     </LayoutWrapper>
   )
 }

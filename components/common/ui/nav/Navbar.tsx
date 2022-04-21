@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react"
+import React, { useState, useEffect, useRef } from "react"
 import styled from "styled-components"
 import { motion, AnimatePresence } from "framer-motion"
 import { RiMenu3Fill } from "react-icons/ri"
@@ -137,6 +137,30 @@ const Nav = styled.div`
           }
         }
 
+        .heart {
+            position: relative;
+            .icon {
+              font-size: 26px;
+              &:hover ~ .tooltip {
+                display: block;
+              }
+              &:hover {
+                color: var(--col-brand);
+                cursor: pointer;
+              }
+            }
+            .tooltip {
+              position: absolute;
+              left: -100%;
+              display: none;
+              background: #000;
+              color: #fff;
+              border: 1px solid #fff;
+              font-size: 11px;
+              padding: 3px 6px;
+            }
+          }
+
         .user-options {
           display: flex;
           align-items: center;
@@ -157,7 +181,6 @@ const Nav = styled.div`
                 color: var(--col-brand);
                 cursor: pointer;
               }
-             
             }
             .tooltip {
               position: absolute;
@@ -178,6 +201,9 @@ const Nav = styled.div`
 
         li {
           color: #555;
+          &:hover {
+            font-weight: 500;
+          }
         }
         button {
           border: none;
@@ -211,17 +237,18 @@ export default function Navbar({ setShowModal }) {
   const [autoComplete, setAutoComplete] = useState(null)
 
   const onLoad = (autoC) => {
-      setAutoComplete(autoC)
+    setAutoComplete(autoC)
   }
 
   const onPlaceChanged = () => {
-      const lat = autoComplete.getPlace().geometry.location.lat()
-      const lng = autoComplete.getPlace().geometry.location.lng()
-      // setCoordinates({lat, lng})
+    const lat = autoComplete.getPlace().geometry.location.lat()
+    const lng = autoComplete.getPlace().geometry.location.lng()
+    // setCoordinates({lat, lng})
   }
 
-
   const [effect, setEffect] = useState(false)
+  const [keyword, setKeyword] = useState('')
+  const keyRef = useRef<HTMLInputElement>()
   const handleScroll = () => {
     if (window.pageYOffset > 150) {
       setEffect(true)
@@ -245,6 +272,12 @@ export default function Navbar({ setShowModal }) {
     setShowModal(true)
   }
   const logoutHandler = () => [signOut()]
+
+  const onSearchSubmit = (e) => {
+    e.preventDefault()
+    console.log(keyRef.current.value, 'keyword')
+    router.push(`/search/${keyRef.current.value}`)
+  }
   return (
     <Nav>
       <div className="_nav-container">
@@ -257,9 +290,9 @@ export default function Navbar({ setShowModal }) {
         </div>
         <nav className="_nav">
           <ul>
-            <form>
-            <Autocomplete onLoad={onLoad} onPlaceChanged={onPlaceChanged}>
-              <input type="text" placeholder="Search" />
+            <form onSubmit={(e) => onSearchSubmit(e)}>
+              <Autocomplete onLoad={onLoad} onPlaceChanged={onPlaceChanged}>
+                <input type="text" ref={keyRef} placeholder="Search" value={keyword} onChange={e => setKeyword(e.target.value)}/>
               </Autocomplete>
               {/* <input type="text" placeholder="Search" /> */}
               <button>
@@ -267,14 +300,24 @@ export default function Navbar({ setShowModal }) {
               </button>
             </form>
             {/* <a href="#service" className="explore"> */}
-              <li>
-                {" "}
-                <Link href="/explore" passHref>
-                  <a>Looking for Adventures?</a>
-                </Link>
-              </li>
+            <li>
+              {" "}
+              <Link href="/explore" passHref>
+                <a>Looking for Adventures?</a>
+              </Link>
+            </li>
             {/* </a> */}
-            {status === 'authenticated' && <Link href="/favourites" passHref><a><HiHeart style={{color: 'var(--col-brand)', fontSize: '20px'}} /></a></Link>}
+            {status === "authenticated" && (
+              <Link href="/favourites" passHref>
+                <a className="heart">
+                  <HiHeart
+                    className="icon"
+                    style={{ color: "var(--col-brand)", fontSize: "20px" }}
+                  />
+                   <span className="tooltip">Favourites</span>
+                </a>
+              </Link>
+            )}
             <div className="user-options">
               <button
                 className={` button ${!effect ? "normal-btn" : "active-btn"}`}

@@ -3,6 +3,7 @@ import styled from "styled-components"
 import { MdClose } from "react-icons/md"
 
 const ModalWrapper = styled.div`
+  
   .backdrop {
     height: 100vh;
     width: 100vw;
@@ -13,7 +14,8 @@ const ModalWrapper = styled.div`
   }
 
   .contents {
-    min-height: 300px;
+    min-height: 100px;
+    max-height: 600px;
     width: 400px;
     background: var(--col-white);
     position: absolute;
@@ -23,14 +25,26 @@ const ModalWrapper = styled.div`
     transform: translate(-50%, -50%);
     border-radius: 4px;
     padding: 1rem;
+    overflow-y: scroll;
     .close {
       position: absolute;
       right: 0.6rem;
       top: 0.6rem;
+      cursor: pointer;
       .icon {
         font-size: 22px;
       }
     }
+    &::-webkit-scrollbar {
+    width: 4px; /* Remove scrollbar space */
+    background: transparent; /* Optional: just make scrollbar invisible */
+  }
+  /* Optional: show position indicator in red */
+  &::-webkit-scrollbar-thumb {
+    background: var(--col-brand);
+    border-radius: 15px;
+
+  }
   }
 `
 
@@ -48,8 +62,7 @@ const Modal = ({ show, onClose, children, title }: ModalProps) => {
     setIsBrowser(true)
   }, [])
 
-  const handleCloseClick = (e) => {
-    e.preventDefault()
+  const handleCloseClick = () => {
     onClose()
   }
   return show ? (

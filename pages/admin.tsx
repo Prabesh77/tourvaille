@@ -1,24 +1,29 @@
-import React from "react"
-import Navbar from "../components/common/ui/nav/Navbar"
-import Rafting from "../components/sections/Raftings"
-import Trekking from "../components/sections/Trekkings"
-
-import { TrekkingData } from "../data/TrekkingData"
-import { RaftingData } from "../data/RaftingData"
+import styled from "styled-components"
+import AdminAuthForm from "../components/auth/admin-auth"
 import PageHead from "../components/common/other/Head"
+import AdminPage from "../components/screen/admin/AdminPage"
 
-const explore = ({ trekking, rafting }) => {
-  // console.log(trekking)
+const AdminWrapper = styled.div`
+  min-height: 350px;
+  width: 325px;
+  background: var(--col-white);
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+`
+
+const admin = ({ trekking, rafting }) => {
   return (
-    <div>
+    <>
+      {" "}
       <PageHead
-        title="Home"
+        title="Admin"
         name="Tourvaille."
         content="Make your trip best memory with us."
       />
-      <Trekking trekking={trekking} />
-      <Rafting rafting={rafting} />
-    </div>
+      <AdminPage trekking={trekking} rafting={rafting} />
+    </>
   )
 }
 
@@ -35,4 +40,4 @@ export async function getServerSideProps() {
   }
 }
 
-export default explore
+export default admin

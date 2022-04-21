@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react"
 import styled from "styled-components"
 import { motion, AnimatePresence } from "framer-motion"
 import { RiMenu3Fill } from "react-icons/ri"
-import { HiOutlineSearch, HiOutlineUserCircle } from "react-icons/hi"
+import { HiHeart, HiOutlineSearch, HiOutlineUserCircle } from "react-icons/hi"
 import Link from 'next/link'
 import { Autocomplete } from '@react-google-maps/api'
 import { useRouter } from "next/router"
@@ -131,6 +131,30 @@ const Nav = styled.div`
           }
         }
 
+        .heart {
+            position: relative;
+            .icon {
+              font-size: 26px;
+              &:hover ~ .tooltip {
+                display: block;
+              }
+              &:hover {
+                color: var(--col-brand);
+                cursor: pointer;
+              }
+            }
+            .tooltip {
+              position: absolute;
+              left: -100%;
+              display: none;
+              background: #000;
+              color: #fff;
+              border: 1px solid #fff;
+              font-size: 11px;
+              padding: 3px 6px;
+            }
+          }
+
         .user-options {
             display: flex;
             align-items: center;
@@ -237,6 +261,17 @@ export default function Header({setShowModal, setCoordinates}) {
             <a href="#service" className="explore">
               <li> <Link href="/explore" passHref><a>Explore anywhere?</a></Link></li>
             </a>
+            {status === "authenticated" && (
+              <Link href="/favourites" passHref>
+                <a className="heart">
+                  <HiHeart
+                    className="icon"
+                    style={{ color: "var(--col-brand)", fontSize: "20px" }}
+                  />
+                   <span className="tooltip">Favourites</span>
+                </a>
+              </Link>
+            )}
             <div className="user-options" onClick={() => handleUserIconClick()}>
               <button className={!effect ? "normal-btn" : "active-btn"}>
               <HiOutlineUserCircle style={{fontSize: '18px'}}/>
@@ -244,6 +279,7 @@ export default function Header({setShowModal, setCoordinates}) {
             {/* <p className="hamburger" onClick={() => setMenu(!menu)}>
               <RiMenu3Fill />
             </p> */}
+            
             </div>
           </ul>
         </nav>

@@ -1,5 +1,5 @@
 
-import { useRef } from 'react'
+import { useState, useRef } from 'react'
 import Button from '../common/ui/inputs/Button'
 // import classes from './profile-form.module.css'
 import styled from 'styled-components'
@@ -46,20 +46,34 @@ const FormWrapper = styled.form`
       cursor: pointer;
     }
   }
+  span {
+    font-size: 12px;
+    color: var(--col-warning);
+    font-weight: bold;
+  }
 `
 
 function ProfileForm(props) {
   const oldPasswordRef = useRef<HTMLInputElement>()
   const newPasswordRef = useRef<HTMLInputElement>()
 
+  const [error, setError] = useState('')
+
   const submitHandler = (event) => {
     event.preventDefault()
     const enteredOldPassword = oldPasswordRef.current.value
     const enteredNewPassword = newPasswordRef.current.value
-    props.onChangePassword({
+    if(enteredOldPassword === '' && enteredNewPassword === '') {
+     setError('Fields cannot be empty')
+    }
+    if(enteredOldPassword !== '' && enteredNewPassword !== '') {
+      props.onChangePassword({
         oldPassword: enteredOldPassword,
         newPassword: enteredNewPassword
     })
+    setError('')
+    }
+   
   }
 
   return (
@@ -73,6 +87,7 @@ function ProfileForm(props) {
         <label htmlFor='old-password'>Old Password</label>
         <input type='password' id='old-password' ref={oldPasswordRef}/>
       </div>
+      {error && <span className="error">{error}</span>}
       <div className='action-buttons'>
         <Button type="primary" text="Change Password" size="large"/>
       </div>

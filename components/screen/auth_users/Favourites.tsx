@@ -46,22 +46,23 @@ const Favourites = () => {
     const [favs, setFavs] = useState<any>()
     const [refresh, setRefresh] = useState(false)
 
-    console.log(refresh, 'refresh', favs)
-
     const fetchFavs = async () => {
         const resFavourites = await fetch(
           "http://localhost:3000/api/travel/getFavourites"
         )
         const favData = await resFavourites.json()
-        const finalData = favData?.filter(d => d.user === session?.user?.email)
-        setFavs(finalData)
+    //    console.log(favData, 'favdata')
+        setFavs(favData)
       }
-  
+
     useEffect(() => {
       fetchFavs()
+     
     }, [refresh])
 
-    if(!favs || favs?.length < 1) {
+    console.log(favs)
+
+    if( favs && favs[0]?.user !== session?.user?.email) {
         return(
             <ErrorDiv>
             <p>Your favorite list is empty!</p>
@@ -71,7 +72,7 @@ const Favourites = () => {
     }
     return (
         <FavouritesWrapper>
-           {favs?.map(data => <AdventureCard key={data?._id} place={data} type={data?.type} refresh={setRefresh}/>)}
+           {favs?.filter(d => d.user == session?.user?.email)?.map(data => <AdventureCard key={data?._id} place={data} type={data?.type} refresh={setRefresh}/>)}
         </FavouritesWrapper>
     )
 }

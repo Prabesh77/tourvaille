@@ -6,14 +6,16 @@ import Typo from "../typo/Typo"
 const BannerWrapper = styled.div`
   height: 626px;
   width: 100%;
-  background: url("https://images.pexels.com/photos/417344/pexels-photo-417344.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940")
+  /* background: url("https://images.pexels.com/photos/417344/pexels-photo-417344.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940")
+    no-repeat center/cover; */
+    background: url("/IMG_1183.jpg")
     no-repeat center/cover;
   position: relative;
 
   .gradient {
     height: 100%;
     width: 100%;
-    background: linear-gradient(rgba(0, 0, 0, 0.9), rgba(0, 0, 0, 0.3));
+    /* background: linear-gradient(rgba(0, 0, 0, 0.9), rgba(0, 0, 0, 0.3)); */
     z-index: 10;
     opacity: 0.4;
     overflow: hidden;

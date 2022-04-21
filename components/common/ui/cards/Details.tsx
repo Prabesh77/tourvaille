@@ -1,4 +1,4 @@
-import { useState, useEffect, useRef } from "react"
+import { useState, useEffect, useRef, useContext } from "react"
 import Image from "next/image"
 import styled from "styled-components"
 import Typo from "../typo/Typo"
@@ -9,10 +9,12 @@ import { Rating } from "@material-ui/lab"
 import GoogleMapReact from "google-map-react"
 import { FaMapMarkerAlt, FaTripadvisor } from "react-icons/fa"
 import { VscGlobe } from "react-icons/vsc"
+import NotificationContext from "../../../../store/notification-store"
 
 const DetailsWrapper = styled.div`
   width: 100%auto;
   margin-top: 2rem;
+  min-height: 1000px;
   @media (max-width: 768px) {
     margin-top: 0;
   }
@@ -200,6 +202,8 @@ const DetailsWrapper = styled.div`
 
 const Details = ({ details }) => {
   console.log(details, "DETAILS👋")
+  const notificationCtx = useContext(NotificationContext)
+  const [addToFav, setAddToFav] = useState(false)
   return (
     <DetailsWrapper>
       <div className="contents">
@@ -317,10 +321,17 @@ const Details = ({ details }) => {
             </div>
             
             <Button
-              type="primary"
+              type={addToFav? 'secondary': 'primary'}
               size="large"
               text="Add to Favourites"
-              // onClick={""}
+              onClick={() => {
+                setAddToFav(!setAddToFav)
+                notificationCtx.showNotification({
+                  title: "",
+                  message: "Added to favourite!",
+                  status: "success",
+                })
+              }}
             />
           </div>
         </div>

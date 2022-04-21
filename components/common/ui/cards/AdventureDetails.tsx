@@ -152,8 +152,8 @@ const DetailsWrapper = styled.div`
 const AdventureDetails = ({ details, type }) => {
 
   const checkType = type === "Trekking" ? true : false
-  const lat = +details?.coordinates[0]
-  const lng = +details?.coordinates[1]
+  const lat = checkType && +details?.coordinates[0]
+  const lng = checkType && +details?.coordinates[1]
   console.log(details)
   return (
     <DetailsWrapper>
@@ -224,19 +224,25 @@ const AdventureDetails = ({ details, type }) => {
                     Rafting starts
                   </Typo>
                   <Typo color="dark" type="paragraph">
-                    Option Two
+                    Rafting Ends
                   </Typo>
                   <Typo color="dark" type="paragraph">
-                    Option Three
+                    Distance
                   </Typo>
                   <Typo color="dark" type="paragraph">
-                    Option Four
+                    Duration
                   </Typo>
                   <Typo color="dark" type="paragraph">
-                    Option Five
+                    Perfect For
                   </Typo>
                   <Typo color="dark" type="paragraph">
-                    Option Six
+                    Difficulty
+                  </Typo>
+                  <Typo color="dark" type="paragraph">
+                    Best Season
+                  </Typo>
+                  <Typo color="dark" type="paragraph">
+                    Closest Landmark
                   </Typo>
                 </div>
                 <div className="value">
@@ -244,19 +250,25 @@ const AdventureDetails = ({ details, type }) => {
                     {details?.RaftingStarts}
                   </Typo>
                   <Typo color="dark" type="paragraph">
-                    OTypotion Two
+                   {details?.RaftingEnds}
                   </Typo>
                   <Typo color="dark" type="paragraph">
-                    OTypotion Three
+                  {details?.Distance}
                   </Typo>
                   <Typo color="dark" type="paragraph">
-                    OTypotion Four
+                  {details?.Duration}
                   </Typo>
                   <Typo color="dark" type="paragraph">
-                    OTypotion Five
+                  {details?.PerfectFor}
                   </Typo>
                   <Typo color="dark" type="paragraph">
-                    OTypotion Six
+                  {details?.Difficulty}
+                  </Typo>
+                  <Typo color="dark" type="paragraph">
+                  {details?.BestSeason}
+                  </Typo>
+                  <Typo color="dark" type="paragraph">
+                  {details?.TourStartsAt}
                   </Typo>
                 </div>
               </div>

@@ -1,5 +1,6 @@
 
 import styled from 'styled-components'
+import { useForm } from "react-hook-form"
 
 const StyledTextField = styled.div`
     display: flex;
@@ -22,13 +23,28 @@ const StyledTextField = styled.div`
     }
 `
 
-const TextField = ({ label, onChange, ...props }) => {
+const TextField = ({ label, ...props }) => {
+    const {
+        register,
+        formState: { errors },
+      } = useForm()
+
+    const name = label
     return (
         <StyledTextField>
-            <label>
+            {/* <label>
                 {label}
             </label>
-            <input {...props} type="text" onChange={(e) => onChange(e.target.value)}/>
+            <input {...props} type="text" onChange={(e) => onChange(e.target.value)}/> */}
+
+            <label htmlFor="email">{label}</label>
+          <input
+            type="text"
+            {...props}
+          />
+          {errors.name && (
+            <span className="error-message">This field is required</span>
+          )}
         </StyledTextField>
     )
 }

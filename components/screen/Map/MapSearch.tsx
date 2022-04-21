@@ -1,6 +1,6 @@
 import { useEffect, useState, useContext } from "react"
 import styled from "styled-components"
-import { useRouter } from 'next/router'
+import { useRouter } from "next/router"
 
 import { getPlacesData } from "./api"
 import List from "./common/List"
@@ -35,10 +35,15 @@ const Layout = styled.div`
   }
 `
 
-function MapSearch({currentType}) {
+interface Prop {
+  currentType?: any
+}
+
+function MapSearch({ currentType }: Prop) {
   const [places, setPlaces] = useState<any>()
   const [filteredPlaces, setFilteredPlaces] = useState<any>()
-  const { coordinates, setCoordinates, bounds, setBounds} = useContext(DataContext)
+  const { coordinates, setCoordinates, bounds, setBounds } =
+    useContext(DataContext)
 
   // const [coordinates, setCoordinates] = useState({})
   // const [bounds, setBounds] = useState<any>({})
@@ -49,7 +54,6 @@ function MapSearch({currentType}) {
 
   const [childClicked, setChildClicked] = useState(null)
   const [loading, setLoading] = useState(false)
-
 
   useEffect(() => {
     navigator.geolocation.getCurrentPosition(
